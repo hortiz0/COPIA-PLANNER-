@@ -6,6 +6,7 @@
 from evento import*
 from usuario import*
 import os
+from tkinter import * 
 from datetime import date
 import calendar
 
@@ -20,31 +21,26 @@ Eventos = []
 quest = -1
 
 
-usuCamila=Usuario('Camila','camila','camila','1')
-usuCamila.exibirNome()
-usuCamila.evento.definirEvento()
-usuCamila.evento.exibirT()
-       
 #Funções
 def iniciar():
   global novosUsuarios
   print('\033[1;49;31m BEM VINDO AO SEU PLANNER \033[m')
   
-  quest = int(input("\n1 - CADASTRO \n2 - DEFINIR EVENTO \n3 - EXIBIR AGENDAMENTO DO EVENTO \n4 - EXIBIR CALENDARIO \n5 - INFORMAÇÕES DE USUÁRIO \n--> "))
-  if quest == 1:
+  quest = int(input("\n1 - LOGIN \n2 - CADASTRO \n3 - DEFINIR EVENTO \n3 - EXIBIR AGENDAMENTO DO EVENTO \n4 - EXIBIR CALENDARIO \n5 - INFORMAÇÕES DE USUÁRIO \n--> "))
+  if quest == 2:
     print('\033[1;49;36m \n-INICIANDO SEU CADASTRO- \033[m')
-    alguem = Usuario()
+    alguem = Usuario('','','','')
     alguem.cadastro()
     novosUsuarios.append(alguem)
     os.system("clear")
     iniciar()
-  elif quest == 2:
+  elif quest == 3:
     definirEvento()
     os.system("clear")
     iniciar()
-  elif quest == 3:
-    exibirEvento()
   elif quest == 4:
+    exibirEvento()
+  elif quest == 5:
     exibirCalendar()
     iniciar()
   elif quest == 5:
@@ -87,7 +83,7 @@ def retornar():
     os.system("clear")
     iniciar()
 #Objeto
-alguem = Usuario()
+alguem = Usuario('', '', '', '')
 evento = Evento()
 
 #fim da class  

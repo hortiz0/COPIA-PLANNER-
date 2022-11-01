@@ -35,4 +35,8 @@ class Usuario:
     else:
       for a in novosUsuarios:
         print("Nome: {} \nEmail: {} \nSenha: {}Telefone: {} ".format (a.nome, a.email, a.senha, a.tele))
-    
+
+  def login(self):
+    em = imput('Digite seu email: ')
+    sen = imput('digite sua senha: ')
+    if em == self.__email and sen == self.__senha:  
