@@ -3,6 +3,11 @@
 
 
 #Bibliotecas
+from tkinter import *
+from interface import *
+
+principal.mainloop()
+
 from evento import*
 from usuario import*
 import os
@@ -17,9 +22,6 @@ global alguem
 
 global eventos
 Eventos = []
-
-quest = -1
-
 
 #Funções
 def iniciar():
@@ -49,7 +51,7 @@ def iniciar():
   elif quest == 5:
     exibirCalendar()
     iniciar()
-  elif quest == 5:
+  elif quest == 6:
     os.system("clear")
     if len(novosUsuarios) == 0:
       print("i")
@@ -60,6 +62,8 @@ def iniciar():
     retornar()
   elif quest < 1:
    raise Exception("Não aceitamos número abaixo de zero")
+  elif quest>6:
+    raise Exception("Não aceitamos números maiores que 6")
   
 def definirEvento():
   os.system("clear")
