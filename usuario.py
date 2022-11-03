@@ -1,5 +1,7 @@
 #Classe usuário
 from evento import *
+import os
+
 class Usuario:
   def __init__(self, nome, email, senha, tele):
     self.__nome = nome
@@ -7,12 +9,14 @@ class Usuario:
     self.__senha = senha
     self.__tele= tele
     self.evento= Evento()
+    self.us = []
 
   def cadastro(self):
     self.__nome = input('Digite o seu nome: ')
     self.__email = input('Digite o seu email: ')
     self.__senha = input('Digite sua senha: ')
     self.__tele= input('Digite seu telefone: ')
+    self.us.extend((self.__nome,self.__email,self.__senha,self.__tele))
     
   def getCadastro(self):
     return self.__nome
@@ -37,6 +41,14 @@ class Usuario:
         print("Nome: {} \nEmail: {} \nSenha: {}Telefone: {} ".format (a.nome, a.email, a.senha, a.tele))
 
   def login(self):
-    em = imput('Digite seu email: ')
-    sen = imput('digite sua senha: ')
-    if em == self.__email and sen == self.__senha:  
+    os.system('clear')
+    print('LOGIN')
+    em = input('Digite seu email: ')
+    sen = input('digite sua senha: ')
+    if em in email:
+     self.senha_login(login)
+    else:
+      print('email incorreto')
+      self.fazer_login()
+
+

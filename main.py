@@ -26,7 +26,13 @@ def iniciar():
   global novosUsuarios
   print('\033[1;49;31m BEM VINDO AO SEU PLANNER \033[m')
   
-  quest = int(input("\n1 - LOGIN \n2 - CADASTRO \n3 - DEFINIR EVENTO \n3 - EXIBIR AGENDAMENTO DO EVENTO \n4 - EXIBIR CALENDARIO \n5 - INFORMAÇÕES DE USUÁRIO \n--> "))
+  quest = int(input("\n1 - LOGIN \n2 - CADASTRO \n3 - DEFINIR EVENTO \n4 - EXIBIR AGENDAMENTO DO EVENTO \n5 - EXIBIR CALENDARIO \n6 - INFORMAÇÕES DE USUÁRIO \n--> "))
+  if quest == 1:
+    alguem = Usuario('','','','')
+    alguem.login()
+    novosUsuarios.append(alguem)
+    os.system("clear")
+    iniciar()
   if quest == 2:
     print('\033[1;49;36m \n-INICIANDO SEU CADASTRO- \033[m')
     alguem = Usuario('','','','')
