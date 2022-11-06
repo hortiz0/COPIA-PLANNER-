@@ -6,7 +6,7 @@
 from tkinter import *
 from interface import *
 
-principal.mainloop()
+#principal.mainloop()
 
 from evento import*
 from usuario import*

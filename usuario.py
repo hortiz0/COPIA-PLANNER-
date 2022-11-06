@@ -1,6 +1,7 @@
-#Classe usuário
 from evento import *
 import os
+pessoas = []
+dicionario = {}
 
 class Usuario:
   def __init__(self, nome, email, senha, tele):
@@ -9,14 +10,24 @@ class Usuario:
     self.__senha = senha
     self.__tele= tele
     self.evento= Evento()
-    self.us = []
 
   def cadastro(self):
+    arquivo = open('arquivo.txt', '+a')
     self.__nome = input('Digite o seu nome: ')
+    arquivo.write(self.__nome)
+    arquivo.write('\n')
     self.__email = input('Digite o seu email: ')
+    arquivo.write(self.__email)
+    arquivo.write('\n')
     self.__senha = input('Digite sua senha: ')
+    arquivo.write(self.__senha)
+    arquivo.write('\n')
     self.__tele= input('Digite seu telefone: ')
-    self.us.extend((self.__nome,self.__email,self.__senha,self.__tele))
+    arquivo.write(self.__tele)
+    arquivo.write('\n')
+    pessoas.insert(0,(self.__nome,self.__email,self.__senha,self.__tele))
+    arquivo.seek(0,0)
+    arquivo.close
     
   def getCadastro(self):
     return self.__nome
@@ -44,12 +55,12 @@ class Usuario:
     os.system('clear')
     print('LOGIN')
     em = input('Digite seu email: ')
-    sen = input('digite sua senha: ')
-    if em in email:
-     self.senha_login(login)
-     print("login concluído")
+    if em and sen in email:
+    self.senha_login(em)
+    
     else:
-      print('email incorreto')
-      self.fazer_login()
-
-
+      print('email inexistente')
+      input('enter pra tentar novamente')
+      self.login()
+  def senha_login
+  
