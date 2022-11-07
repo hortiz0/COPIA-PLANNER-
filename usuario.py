@@ -1,7 +1,13 @@
 from evento import *
 import os
+import time
 pessoas = []
 dicionario = {}
+usuario = []
+global email
+email = []
+senha= []
+from tkinter import *
 
 class Usuario:
   def __init__(self, nome, email, senha, tele):
@@ -9,9 +15,11 @@ class Usuario:
     self.__email = email
     self.__senha = senha
     self.__tele= tele
-    self.evento= Evento()
+    self.evento= Evento()    
 
   def cadastro(self):
+    os.system('clear')
+    print('cadastro')
     arquivo = open('arquivo.txt', '+a')
     self.__nome = input('Digite o seu nome: ')
     arquivo.write(self.__nome)
@@ -23,11 +31,20 @@ class Usuario:
     arquivo.write(self.__senha)
     arquivo.write('\n')
     self.__tele= input('Digite seu telefone: ')
+    print()
+    print('cadastro concluido')
+    time.sleep(3)
     arquivo.write(self.__tele)
     arquivo.write('\n')
+    email.append(self.__email)
     pessoas.insert(0,(self.__nome,self.__email,self.__senha,self.__tele))
     arquivo.seek(0,0)
     arquivo.close
+
+    #sql_dados= "INSERT INTO users(nome, email,senha,tele) VALUES ('" + self.nome + "', '" + self.__email + "', '" + self.__senha +'", "' + self.__tele + "')"
+
+    #insert_data(conexao, sql_dados)
+ 
     
   def getCadastro(self):
     return self.__nome
@@ -46,7 +63,7 @@ class Usuario:
     print('nome do usuario:',self.__nome)
   def exibir(self):
     if len(novosUsuarios) == 0:
-      print("i")
+      print("escolha 1 ou 2")
     else:
       for a in novosUsuarios:
         print("Nome: {} \nEmail: {} \nSenha: {}Telefone: {} ".format (a.nome, a.email, a.senha, a.tele))
@@ -55,12 +72,16 @@ class Usuario:
     os.system('clear')
     print('LOGIN')
     em = input('Digite seu email: ')
-    if em and sen in email:
-    self.senha_login(em)
-    
+    senha= input('digite sua senha: ')
+    if em  in email:
+     self.senha_login(em)
     else:
-      print('email inexistente')
-      input('enter pra tentar novamente')
-      self.login()
-  def senha_login
+      print('não existe, faça seu cadastro')
+      time.sleep(6)
+      
+
+
   
+
+  
+    

@@ -4,8 +4,6 @@
 
 #Bibliotecas
 from tkinter import *
-from interface import *
-
 #principal.mainloop()
 
 from evento import*
@@ -14,6 +12,8 @@ import os
 from tkinter import * 
 from datetime import date
 import calendar
+global novosUsuarios
+definirEvento=[]
 
 #Globais
 novosUsuarios = []
@@ -23,47 +23,65 @@ global alguem
 global eventos
 Eventos = []
 
+
 #Funções
 def iniciar():
-  global novosUsuarios
-  print('\033[1;49;31m BEM VINDO AO SEU PLANNER \033[m')
-  
-  quest = int(input("\n1 - LOGIN \n2 - CADASTRO \n3 - DEFINIR EVENTO \n4 - EXIBIR AGENDAMENTO DO EVENTO \n5 - EXIBIR CALENDARIO \n6 - INFORMAÇÕES DE USUÁRIO \n--> "))
-  if quest == 1:
-    alguem = Usuario('','','','')
-    alguem.login()
-    novosUsuarios.append(alguem)
-    os.system("clear")
-    iniciar()
-  if quest == 2:
-    print('\033[1;49;36m \n-INICIANDO SEU CADASTRO- \033[m')
-    alguem = Usuario('','','','')
-    alguem.cadastro()
-    novosUsuarios.append(alguem)
-    os.system("clear")
-    iniciar()
-  elif quest == 3:
-    definirEvento()
-    os.system("clear")
-    iniciar()
-  elif quest == 4:
-    exibirEvento()
-  elif quest == 5:
-    exibirCalendar()
-    iniciar()
-  elif quest == 6:
-    os.system("clear")
-    if len(novosUsuarios) == 0:
-      print("i")
+  cor1 = "#993399"
+  principal = Tk()
+  principal.title("BEM VINDO AO SEU PLANNER")
+  principal.configure( background = cor1)
+  principal.geometry("700x500+200+200")
+  quest = Label(principal, text = "PLANNER", background = cor1)
+  quest.place(x = 100, y = 20)
+  quest1 = Label(principal, text = "1 - LOGIN ", background = cor1)
+  quest1.place(x = 70, y = 40)
+  quest2 = Label(principal, text = "2 - CADASTRO ", background = cor1)
+  quest2.place(x = 70, y = 60)
+  quest3 = Label(principal, text = "3 - DEFINIR EVENTO ", background = cor1)
+  quest3.place(x = 70, y = 80)
+  quest4 = Label(principal, text = "4 - EXIBIR AGENDAMENTO DO EVENTO ", background = cor1)
+  quest4.place(x = 70, y = 100)
+  quest5 = Label(principal, text = "5 - EXIBIR CALENDARIO ", background = cor1)
+  quest5.place(x = 70, y = 120)
+  quest6 = Label(principal, text = "6 - INFORMAÇÕES DO USUARIO ", background = cor1)
+  quest6.place(x = 70, y = 140)
+  entrada = Entry(principal)
+  entrada.place( x = 70, y = 170)
+  def btclick():
+    if int(entrada.get()) == 1:
+      alguem = Usuario('','','','')
+      alguem.login()
+      novosUsuarios.append(alguem)
+      os.system("clear")
+      iniciar()
+    elif int(entrada.get()) == 2:
+      print('\033[1;49;36m \n-INICIANDO SEU CADASTRO- \033[m')
+      alguem = Usuario('','','','')
+      alguem.cadastro()
+      novosUsuarios.append(alguem)
+      os.system("clear")
+      iniciar()
+    elif int(entrada.get()) == 3:
+      definirEvento()
+      os.system("clear")
+      iniciar()
+    elif int(entrada.get()) == 4:
+      exibirEvento()
+    elif int(entrada.get()) == 5:
+      exibirCalendar()
+      iniciar()
+    elif int(entrada.get()) == 6:
+      os.system("clear")
+      if len(novosUsuarios) == 0:
+        print("não tem usuario")
+        retornar()
     else:
-     for a in novosUsuarios:
-       print("Nome: {} \nEmail: {}\nTelefone: {}\n".format(a.getNome(), a.getEmail(),a.getTele()))
-       
-    retornar()
-  elif quest < 1:
-   raise Exception("Não aceitamos número abaixo de zero")
-  elif quest>6:
-    raise Exception("Não aceitamos números maiores que 6")
+      print('digite um numero de 1 a 6')
+  
+
+  botao = Button(principal, text = 'enviar', command = btclick )
+  botao.place (x= 70, y=200)
+
   
 def definirEvento():
   os.system("clear")

@@ -1,6 +1,7 @@
 # class Evento
 eventos = []
 eventoes = []
+from tkinter import * 
 
 class Evento:
   def _init__(self):
@@ -11,8 +12,9 @@ class Evento:
     self.__mesEvento= ''
     self.__anoEvento= ''
     self.__dialivre= ''
+    
 
-  
+
   def definirEvento(self):
     print('\033[1;49;36m -AGENDANDO EVENTO- \033[m')
     self.__nomeEvento = input("Defina o nome do evento: ")
