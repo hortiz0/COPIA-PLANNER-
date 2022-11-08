@@ -57,7 +57,6 @@ def iniciar():
             iniciar()
         elif int(entrada.get()) == 3:
             principal.destroy()
-            os.system('clear')
             definirEvento()
             iniciar()
         elif int(entrada.get()) == 4:
@@ -82,12 +81,10 @@ def iniciar():
 def definirEvento():
     os.system("clear")
     evento.definirEvento()
-    retornar()
 
 
 def exibirEvento():
     evento.exibirT()
-    retornar()
 
 
 def exibirCalendar():
