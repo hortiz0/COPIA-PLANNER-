@@ -2,6 +2,7 @@ from usuario import *
 import os
 from tkinter import *
 import calendar
+import sqlite3
 
 definirEvento = []
 
@@ -11,14 +12,28 @@ global alguem
 
 global eventos
 Eventos = []
+alguem = Usuario()
 
-evento = Evento()
-
-
+from usuario import novosUsuarios
 # Funções
 
+def bd():
+  print('\n1 - ver banco de dados\n2 - excluir dados\n3 - voltar')
+  a=int(input("-> "))
+  if a==1:
+    alguem.ler()
+    os.system('clear')
+    bd()
+  elif a==2:
+    alguem.excluir()
+    os.system('clear')
+    bd()
+  elif a==3:
+    iniciar()
+  else:
+    print('digite 1 ou 2')
+
 def iniciar():
-    alguem = Usuario()
     cor1 = "#993399"
     principal = Tk()
     principal.title("BEM VINDO AO SEU PLANNER")
@@ -30,81 +45,26 @@ def iniciar():
     quest1.place(x=70, y=40)
     quest2 = Label(principal, text="2 - CADASTRO ", background=cor1)
     quest2.place(x=70, y=60)
-    quest3 = Label(principal, text="3 - DEFINIR EVENTO ", background=cor1)
+    quest3 = Label(principal, text="3 - BANCO DE DADOS ", background=cor1)
     quest3.place(x=70, y=80)
-    quest4 = Label(principal, text="4 - EXIBIR AGENDAMENTO DO EVENTO ", background=cor1)
-    quest4.place(x=70, y=100)
-    quest5 = Label(principal, text="5 - EXIBIR CALENDARIO ", background=cor1)
-    quest5.place(x=70, y=120)
-    quest6 = Label(principal, text="6 - INFORMAÇÕES DO USUARIO ", background=cor1)
-    quest6.place(x=70, y=140)
     entrada = Entry(principal)
-    entrada.place(x=70, y=170)
+    entrada.place(x=70, y=110)
 
     def btclick():
         if int(entrada.get()) == 1:
             principal.destroy()
-            os.system('clear')
             alguem.login()
-            novosUsuarios.append(alguem)
             iniciar()
         elif int(entrada.get()) == 2:
             principal.destroy()
-            print('\033[1;49;36m \n-INICIANDO SEU CADASTRO- \033[m')
-            os.system('clear')
             alguem.cadastro()
-            novosUsuarios.append(alguem)
             iniciar()
         elif int(entrada.get()) == 3:
-            principal.destroy()
-            definirEvento()
-            iniciar()
-        elif int(entrada.get()) == 4:
-            principal.destroy()
-            os.system('clear')
-            exibirEvento()
-            iniciar()
-        elif int(entrada.get()) == 5:
-            principal.destroy()
-            os.system('clear')
-            exibirCalendar()
-            iniciar()
-        elif int(entrada.get()) == 6:
-            pass
-        else:
-            print('digite um numero de 1 a 6')
+          bd()
 
     botao = Button(principal, text='enviar', command=btclick)
-    botao.place(x=70, y=200)
+    botao.place(x=70, y=140)
     principal.mainloop()
-
-def definirEvento():
-    os.system("clear")
-    evento.definirEvento()
-
-
-def exibirEvento():
-    evento.exibirT()
-
-
-def exibirCalendar():
-    print('Calendario')
-    print(calendar.calendar(2022))
-    retornar()
-
-
-# Retornar ao inciar
-def retornar():
-    op = int(input("DIGITE 0 SE DESEJA VOLTAR PARA O MENU: "))
-    try:
-        op != 0
-    except:
-        print(" Número não identificado")
-    finally:
-        print("APENAS O NÚMERO 0 PARA VOLTAR AO MENU")
-
-    if op == 0:
-        os.system("clear")
-        iniciar()
+  
 # Start
 iniciar()

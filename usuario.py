@@ -1,19 +1,19 @@
 from evento import *
 import os
 import time
+import sqlite3
 
-pessoas = []
-usuario = []
 global email
 email = []
 senha = []
 from tkinter import *
 
+
 global novosUsuarios
 novosUsuarios = []
 
-
 cor1 = "#993399"
+evento = Evento()
 
 class Usuario:
     def __init__(self):
@@ -49,11 +49,12 @@ class Usuario:
 
         def bt_click():
           self.__nome = entrada1.get()
-          self.__email = entrada1.get()
-          self.__senha = entrada1.get()
-          self.__tele = entrada1.get()
+          self.__email = entrada2.get()
+          self.__senha = entrada3.get()
+          self.__tele = entrada4.get()
           email.append(self.__email)
           senha.append(self.__senha)
+          self.banco_de_dados(self.__nome, self.__email, self.__senha, self.__tele)
           janela_cadastro.destroy()
 
           
@@ -62,24 +63,6 @@ class Usuario:
 
         
         janela_cadastro.mainloop()
-      
-    def getCadastro(self):
-        return self.__nome
-        return self.__email
-        return self.__senha
-        return self.__tele
-
-    def getNome(self):
-        return self.__nome
-
-    def getEmail(self):
-        return self.__email
-
-    def getTele(self):
-        return self.__tele
-
-    def exibirNome(self):
-        print('nome do usuario: ', self.__nome)
 
     def exibir(self):
         if len(novosUsuarios) == 0:
@@ -109,6 +92,7 @@ class Usuario:
             indice = email.index(entrada1.get())
             if entrada2.get() in senha[indice]:
               janela_login.destroy()
+              self.escolha()
             else:
               quest3 = Label(janela_login, text="senha errada", background=cor1)
               quest3.place(x=70, y=150)
@@ -116,7 +100,7 @@ class Usuario:
             quest4 = Label(janela_login, text="email não existe", background=cor1)
             quest4.place(x=70, y=150)
             
-          def  bt_click2():
+          def bt_click2():
             janela_login.destroy()  
           
           botao_voltar = Button(janela_login, text= 'voltar ao inicio', command = bt_click2)
@@ -126,10 +110,110 @@ class Usuario:
         botao_login.place(x = 70, y = 110)
         
 
-
         
         janela_login.mainloop()
+
+    def escolha(self):
+      janela_menu=Tk()
+      janela_menu.title("MENU")
+      janela_menu.configure(background=cor1)
+      janela_menu.geometry("700x500+200+200")
+      quest = Label(janela_menu, text="MENU DE OPÇÕES", background=cor1)
+      quest.place(x = 100, y = 20)
+      escolha1 = Label(janela_menu, background=cor1, text = '1 - DEFINIR EVENTO')
+      escolha1.place(x = 50, y = 50 )
+      escolha2 = Label(janela_menu, background=cor1, text = '2 - MOSTRAR EVENTOS CADASTRADOS')
+      escolha2.place(x = 50, y = 70 )
+      escolha3 = Label(janela_menu, background=cor1, text = '3 - MOSTRAR CALENDÁRIO')
+      escolha3.place(x = 50, y = 90 )
+      escolha4 = Label(janela_menu, background=cor1, text = '4 - DADOS DO USUÁRIO')
+      escolha4.place(x = 50, y = 110 )
+      entrada = Entry(janela_menu)
+      entrada.place(x=70, y= 140)
       
+      def bt_click():
+        if int(entrada.get()) == 1:
+            janela_menu.destroy()
+            evento.definirEvento()
+            self.escolha()
+          
+        elif int(entrada.get()) == 2:
+            janela_menu.destroy()
+            evento.exibirT()
+            self.escolha()
+          
+        elif int(entrada.get()) == 3:
+            janela_menu.destroy()
+            print('oi')
+          
+        elif int(entrada.get()) == 4:
+            janela_menu.destroy()
+            print('oi')
+            
+          
+      botao = Button(janela_menu, text='enviar', command = bt_click)
+      botao.place(x=70, y=170)
+      janela_menu.mainloop()
+
+    def banco(self):
+      global conexao, c
+      conexao = sqlite3.connect('Planner.db')
+      c= conexao.cursor()
+      c.execute("""
+      CREATE TABLE IF NOT EXISTS  Usuario (
+            nome TEXT NOT NULL,
+            email TEXT NOT NULL,
+            senha TEXT NOT NULL,
+            telefone TEXT NOT NULL
+      );
+      """)
+  
+        
+    def banco_de_dados(self, nome, email, senha, tele):
+      self.banco()
+  
+      c.execute("""INSERT INTO Usuario (nome,email,senha,telefone) 
+                    VALUES (?, ? , ?, ?)"""
+                , (nome, email, senha, tele))
+      
+      conexao.commit()
+      
+      c.close()
+      conexao.close()
+
+    def ler(self):
+      self.banco()
+      c.execute("""
+      SELECT * FROM Usuario;
+      """)
+
+      for linha in c.fetchall():
+        print(linha)
+
+      c.close()
+      conexao.close()
+
+      input('enter para voltar')
+
+
+    def excluir(self):
+      self.banco()
+
+      email_banco = input('email do usuário: ')
+      c.execute("""
+      DELETE FROM Usuario
+      WHERE email = ?
+      """,(email_banco,))
+
+      conexao.commit()
+      conexao.close()
+
+      input('enter para voltar')
+
+
+      
+
+        
       
       
 
