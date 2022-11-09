@@ -59,17 +59,35 @@ class Evento:
     janela_evento.mainloop()
        
   def exibirT(self):
+    
+    janela_exibir= Tk()
+    janela_exibir.title("JANELA EXIBIR TAREFAS")
+    janela_exibir.configure(background=cor1)
+    janela_exibir.geometry("700x500+200+200")
+    quest = Label(janela_exibir, text="TAREFAS", background=cor1)
+    quest.place(x=120, y=20)
     x = 0
-    print('\nDADOS DO EVENTOS')
-    for e in self.eventoes:
-      print('nome:', self.eventos[x])
-      print('local:', self.eventos[x+1])
-      print('horario:', self.eventos[x+2])
-      print('data:', self.eventos[x+3])
-      print('dia livre:', self.eventos[x+4])
-      print('\n')
-      x += 4
-    input('enter para voltar')
+    eixo_y = 80
+    for e in self.eventoes:   
+      quest1 = Label(janela_exibir, text= ('NOME: ', self.eventos[x]), background= cor1)
+      quest1.place(x=50, y=eixo_y)
+      quest2 = Label(janela_exibir, text= ('LOCAL: ', self.eventos[x+1]), background= cor1)
+      quest2.place(x=50, y=eixo_y+20)
+      quest3 = Label(janela_exibir, text= ('HORÁRIO: ', self.eventos[x+2]), background= cor1)
+      quest3.place(x=50, y=eixo_y+40)
+      quest4 = Label(janela_exibir, text= ('DATA: ', self.eventos[x+3]), background= cor1)
+      quest4.place(x=50, y=eixo_y+60)
+      quest5 = Label(janela_exibir, text= ('DIA LIVRE: ', self.eventos[x+4]), background= cor1)
+      quest5.place(x=50, y=eixo_y+80)
+      eixo_y+=110
+      x +=4
+      
+    def bt_click(): 
+      janela_exibir.destroy()
+      
+    botao = Button(janela_exibir, text = 'voltar', command=bt_click)
+    botao.place(x = 50, y = eixo_y+30)
 
+    janela_exibir.mainloop()
 
 #Fim class

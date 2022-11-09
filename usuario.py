@@ -3,6 +3,7 @@ import os
 import time
 import sqlite3
 from tkinter.messagebox import*
+from calendario import *
 global email
 email = []
 senha = []
@@ -12,6 +13,7 @@ from tkinter import *
 
 global novosUsuarios
 novosUsuarios = []
+
 
 cor1 = "#993399"
 evento = Evento()
@@ -137,26 +139,50 @@ class Usuario:
           
         elif int(entrada.get()) == 3:
             janela_menu.destroy()
-            print('oi')
+            calendario()
             self.escolha(email_login)
           
         elif int(entrada.get()) == 4:
             janela_menu.destroy()
             self.dadosUsuario(email_login)
             self.escolha(email_login)
-            
-          
-      botao = Button(janela_menu, text='enviar', command = bt_click)
-      botao.place(x=50, y=170)
-      janela_menu.mainloop()
 
-    def dadosUsuario(self, email_login):
-       indice = novosUsuarios.index(email_login)
-       print('nome:', novosUsuarios[indice-1])
-       print('email:', novosUsuarios[indice])
-       print('telefone:', novosUsuarios[indice+2])
-       input('enter para voltar ao menu')
-       os.system('clear')
+      def bt_click1():
+         janela_menu.destroy()
+
+      botao = Button(janela_menu, text='enviar', command = bt_click)
+      botao.place(x=50, y=170) 
+      
+      botaoVolta = Button(janela_menu, text= 'voltar', command = bt_click1) 
+      botaoVolta.place(x=50, y=200)
+      
+      janela_menu.mainloop()
+      
+
+    def dadosUsuario(self,email_login):
+      janela_dadosUsuario = Tk()
+      janela_dadosUsuario.title("TELA DADOS DO USUARIO")
+      janela_dadosUsuario.configure(background=cor1)
+      janela_dadosUsuario.geometry("700x500+200+200")
+      indice = novosUsuarios.index(email_login)
+      quest = Label(janela_dadosUsuario, text="USUARIOS CADASTRADOS:", background=cor1)
+      quest.place(x=150, y=20)
+      quest1 = Label(janela_dadosUsuario, text=("Nome: ",novosUsuarios[indice-1]), background=cor1)
+      quest1.place(x=70, y=50)
+      quest1 = Label(janela_dadosUsuario, text=("Email: ",novosUsuarios[indice]), background=cor1)
+      quest1.place(x=70, y=70)
+      quest1 = Label(janela_dadosUsuario, text=("Telefone: ",novosUsuarios[indice+2]), background=cor1)
+      quest1.place(x=70, y=90)
+      
+      def bt_click():
+         janela_dadosUsuario.destroy()
+        
+      botao = Button(janela_dadosUsuario, text = 'voltar', command=bt_click)
+      botao.place(x = 70, y = 120)
+
+      janela_dadosUsuario.mainloop()
+
+     
      
     def banco(self):
       global conexao, c
