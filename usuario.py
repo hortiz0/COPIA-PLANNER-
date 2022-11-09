@@ -2,10 +2,11 @@ from evento import *
 import os
 import time
 import sqlite3
-
+from tkinter.messagebox import*
 global email
 email = []
 senha = []
+
 from tkinter import *
 
 
@@ -54,6 +55,7 @@ class Usuario:
           self.__tele = entrada4.get()
           email.append(self.__email)
           senha.append(self.__senha)
+          novosUsuarios.extend((self.__nome, self.__email, self.__tele))
           self.banco_de_dados(self.__nome, self.__email, self.__senha, self.__tele)
           janela_cadastro.destroy()
 
@@ -61,15 +63,7 @@ class Usuario:
         botao = Button(janela_cadastro, text = 'enviar', command=bt_click)
         botao.place(x = 70, y = 180)
 
-        
         janela_cadastro.mainloop()
-
-    def exibir(self):
-        if len(novosUsuarios) == 0:
-            print("escolha 1 ou 2")
-        else:
-            for a in novosUsuarios:
-                print("Nome: {} \nEmail: {} \nSenha: {}Telefone: {} ".format(a.nome, a.email, a.senha, a.tele))
 
     def login(self):
         janela_login = Tk()
@@ -91,14 +85,13 @@ class Usuario:
           if entrada1.get() in email:
             indice = email.index(entrada1.get())
             if entrada2.get() in senha[indice]:
+              email_login = entrada1.get()
               janela_login.destroy()
-              self.escolha()
+              self.escolha(email_login)
             else:
-              quest3 = Label(janela_login, text="senha errada", background=cor1)
-              quest3.place(x=70, y=150)
+              print(showerror("error", "senha errada")) 
           else:
-            quest4 = Label(janela_login, text="email não existe", background=cor1)
-            quest4.place(x=70, y=150)
+            print(showerror("error", "você não possui cadastro")) 
             
           def bt_click2():
             janela_login.destroy()  
@@ -113,7 +106,7 @@ class Usuario:
         
         janela_login.mainloop()
 
-    def escolha(self):
+    def escolha(self, email_login):
       janela_menu=Tk()
       janela_menu.title("MENU")
       janela_menu.configure(background=cor1)
@@ -129,32 +122,42 @@ class Usuario:
       escolha4 = Label(janela_menu, background=cor1, text = '4 - DADOS DO USUÁRIO')
       escolha4.place(x = 50, y = 110 )
       entrada = Entry(janela_menu)
-      entrada.place(x=70, y= 140)
+      entrada.place(x=50, y= 140)
       
       def bt_click():
         if int(entrada.get()) == 1:
             janela_menu.destroy()
             evento.definirEvento()
-            self.escolha()
+            self.escolha(email_login)
           
         elif int(entrada.get()) == 2:
             janela_menu.destroy()
             evento.exibirT()
-            self.escolha()
+            self.escolha(email_login)
           
         elif int(entrada.get()) == 3:
             janela_menu.destroy()
             print('oi')
+            self.escolha(email_login)
           
         elif int(entrada.get()) == 4:
             janela_menu.destroy()
-            print('oi')
+            self.dadosUsuario(email_login)
+            self.escolha(email_login)
             
           
       botao = Button(janela_menu, text='enviar', command = bt_click)
-      botao.place(x=70, y=170)
+      botao.place(x=50, y=170)
       janela_menu.mainloop()
 
+    def dadosUsuario(self, email_login):
+       indice = novosUsuarios.index(email_login)
+       print('nome:', novosUsuarios[indice-1])
+       print('email:', novosUsuarios[indice])
+       print('telefone:', novosUsuarios[indice+2])
+       input('enter para voltar ao menu')
+       os.system('clear')
+     
     def banco(self):
       global conexao, c
       conexao = sqlite3.connect('Planner.db')

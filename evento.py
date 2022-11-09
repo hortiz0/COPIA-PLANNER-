@@ -48,7 +48,7 @@ class Evento:
        self.__horarioEvento = entrada3.get()
        self.__dataEvento = entrada4.get()
        self.__dialivre = entrada5.get()
-       self.eventos.extend((self.__nomeEvento,self.__localEvento,self.__horarioEvento, self.__dataEvento, self.__mesEvento, self.__anoEvento, self.__dialivre))
+       self.eventos.extend((self.__nomeEvento,self.__localEvento,self.__horarioEvento, self.__dataEvento, self.__dialivre))
        self.eventoes.append(self.eventos)
        janela_evento.destroy()
     
@@ -66,11 +66,9 @@ class Evento:
       print('local:', self.eventos[x+1])
       print('horario:', self.eventos[x+2])
       print('data:', self.eventos[x+3])
-      print('mes:', self.eventos[x+4])
-      print('ano:', self.eventos[x+5])
-      print('dia livre:', self.eventos[x+6])
+      print('dia livre:', self.eventos[x+4])
       print('\n')
-      x += 7
+      x += 4
     input('enter para voltar')
 
 
